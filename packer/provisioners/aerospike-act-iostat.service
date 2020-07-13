@@ -1,0 +1,9 @@
+[Unit]
+Description=Aerospike ACT iostat poll
+BindsTo=aerospike-act.service
+
+[Service]
+Type=simple
+EnvironmentFile=/opt/act/environment
+ExecStartPre=/bin/bash -c 'echo "Creating /var/log/act/$ACT_TEST" && /bin/mkdir -p /var/log/act/$ACT_TEST'
+ExecStart=/bin/bash -c 'echo "Polling iostat" && /usr/bin/iostat -yxt $ACT_IOSTAT_INTERVAL $ACT_DEVICES > /var/log/act/$ACT_TEST/iostat.stdout.txt 2> /var/log/act/$ACT_TEST/iostat.stderr.txt'

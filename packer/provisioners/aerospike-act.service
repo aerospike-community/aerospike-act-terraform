@@ -1,0 +1,22 @@
+[Unit]
+Description=Aerospike ACT
+Requires=cloud-final.service
+After=cloud-final.service
+Wants=aerospike-act-iostat.service
+
+[Service]
+Type=simple
+EnvironmentFile=/opt/act/environment
+LimitNOFILE=65536
+LimitNPROC=65536
+
+ExecStartPre=/bin/bash -c 'echo "Creating /var/log/act/$ACT_TEST" && /bin/mkdir -p /var/log/act/$ACT_TEST && touch /var/log/act/$ACT_TEST/sysinfo.txt'
+ExecStartPre=-/bin/bash -c '{ echo "AWS Instance ID: $(wget -T 2 -q -O - http://169.254.169.254/latest/meta-data/instance-id)" && echo "AWS Instance Type: $(wget -T 2 -q -O - http://169.254.169.254/latest/meta-data/instance-type)" && echo "AWS AMI ID: $(wget -T 2 -q -O - http://169.254.169.254/latest/meta-data/ami-id)"; } >> /var/log/act/$ACT_TEST/sysinfo.txt 2>&1'
+ExecStartPre=-/bin/bash -c '{ set -x && cat /etc/system-release && lscpu && lsblk; } >> /var/log/act/$ACT_TEST/sysinfo.txt 2>&1'
+ExecStart=/bin/bash -c 'echo "Running $ACT_CMD" && /usr/sbin/$ACT_CMD $ACT_CONFIG > /var/log/act/$ACT_TEST/$ACT_CMD.stdout.txt 2> /var/log/act/$ACT_TEST/$ACT_CMD.stderr.txt'
+ExecStopPost=-/bin/bash -c 'echo "Running as_latency" && /sbin/act_latency $ACT_LATENCY_ARGS -l /var/log/act/$ACT_TEST/$ACT_CMD.stdout.txt > /var/log/act/$ACT_TEST/latency.txt'
+ExecStopPost=-/bin/bash -c '[ ! -z "$ACT_S3_URI" ] && echo "Uploading results to S3" && aws s3 sync /var/log/act/$ACT_TEST $ACT_S3_URI/$ACT_TEST/$(wget -q -O - http://169.254.169.254/latest/meta-data/instance-type)/$(wget -q -O - http://169.254.169.254/latest/meta-data/instance-id)/'
+ExecStopPost=/bin/bash -c '[ $ACT_AUTO_SHUTDOWN -gt 0 ] && /usr/sbin/shutdown +10 "ACT complete. Shutting down in 10 minutes."'
+
+[Install]
+WantedBy=cloud-init.target

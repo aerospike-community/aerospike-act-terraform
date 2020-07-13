@@ -1,0 +1,24 @@
+#cloud-config
+---
+write_files:
+- path: /opt/act/${config_file}
+  encoding: b64
+  owner: ec2-user:ec2-user
+  content: ${config_content}
+- path: /opt/act/environment
+  owner: ec2-user:ec2-user
+  content: |
+    ACT_CMD=${act_cmd}
+    ACT_CONFIG=/opt/act/${config_file}
+    ACT_DEVICES=${devices}
+    ACT_TEST=${test_name}
+    ACT_LATENCY_ARGS=${latency_args}
+    ACT_S3_URI=${s3_uri}
+    ACT_AUTO_SHUTDOWN=${auto_shutdown}
+    ACT_IOSTAT_INTERVAL=${iostat_interval}
+%{ if auto_start ~}
+runcmd:
+  - [ systemctl, enable, aerospike-act-iostat.service ]
+  - [ systemctl, enable, aerospike-act.service ]
+  - [ systemctl, start, --no-block, aerospike-act.service ]
+%{ endif ~}

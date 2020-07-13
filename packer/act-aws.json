@@ -1,0 +1,56 @@
+{
+    "variables": {
+        "region": "us-west-2",
+        "act_git_ref": "ed2584b",
+        "act_version": "6.1",
+        "build": "{{ timestamp }}"
+    },
+    "builders": [{
+        "name": "aerospike_act",
+        "type": "amazon-ebs",
+        "region": "{{user `region`}}",
+        "ami_groups": "all",
+        "source_ami_filter": {
+            "filters": {
+            "virtualization-type": "hvm",
+            "name": "amzn2-ami-hvm-*-x86_64-gp2",
+            "root-device-type": "ebs"
+            },
+            "owners": ["137112412989"],
+            "most_recent": true
+        },
+        "instance_type": "t2.small",
+        "ssh_username": "ec2-user",
+        "ami_name": "aerospike-act-{{user `act_version`}}-{{ user `build` }}",
+        "ami_description": "Aerospike ACT installed on Amazon Linux 2 (HVM).",
+        "tags": {
+            "Name": "Aerospike ACT {{user `act_version`}}"
+        }
+    }],
+    "provisioners": [
+        {
+            "pause_before": "15s",
+            "type": "shell",
+            "script": "provisioners/update-system.sh",
+            "expect_disconnect": true,
+            "pause_after": "15s"
+        },
+        {
+            "type": "file",
+            "source": "provisioners/aerospike-act.service",
+            "destination": "/tmp/aerospike-act.service"
+        },
+        {
+            "type": "file",
+            "source": "provisioners/aerospike-act-iostat.service",
+            "destination": "/tmp/aerospike-act-iostat.service"
+        },
+        {
+            "type": "shell",
+            "environment_vars": [
+                "ACT_GIT_REF={{user `act_git_ref`}}"
+            ],
+            "script": "provisioners/install-act.sh"
+        }
+    ]
+}
