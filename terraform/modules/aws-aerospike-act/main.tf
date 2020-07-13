@@ -27,6 +27,12 @@ locals {
     "c5dn.12xlarge": {"count": 2, "prefix": "/dev/nvme", "offset": 1}
     "c5dn.18xlarge": {"count": 2, "prefix": "/dev/nvme", "offset": 1}
     "c5dn.24xlarge": {"count": 4, "prefix": "/dev/nvme", "offset": 1}
+    "i3.large":      {"count": 1, "prefix": "/dev/nvme", "offset": 0}
+    "i3.xlarge":     {"count": 1, "prefix": "/dev/nvme", "offset": 0}
+    "i3.2xlarge":    {"count": 1, "prefix": "/dev/nvme", "offset": 0}
+    "i3.4xlarge":    {"count": 2, "prefix": "/dev/nvme", "offset": 0}
+    "i3.8xlarge":    {"count": 4, "prefix": "/dev/nvme", "offset": 0}
+    "i3.16xlarge":   {"count": 8, "prefix": "/dev/nvme", "offset": 0}
     "m5d.large":     {"count": 1, "prefix": "/dev/nvme", "offset": 1}
     "m5d.xlarge":    {"count": 1, "prefix": "/dev/nvme", "offset": 1}
     "m5d.2xlarge":   {"count": 1, "prefix": "/dev/nvme", "offset": 1}
