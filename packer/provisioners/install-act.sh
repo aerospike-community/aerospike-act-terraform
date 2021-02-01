@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sudo yum install gcc git make -y
+sudo yum install gcc git make sysstat -y
 
 echo "Checking out ACT $ACT_GIT_REF"
 git clone https://github.com/aerospike/act.git

@@ -21,7 +21,7 @@
         },
         "instance_type": "t2.small",
         "ssh_username": "ec2-user",
-        "ami_name": "aerospike-act-{{user `act_version`}}-{{ user `build` }}",
+        "ami_name": "aerospike-act-{{user `act_version` | clean_resource_name}}-{{ user `act_git_ref` }}",
         "ami_description": "Aerospike ACT installed on Amazon Linux 2 (HVM).",
         "tags": {
             "Name": "Aerospike ACT {{user `act_version`}}"
