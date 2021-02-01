@@ -1,0 +1,46 @@
+
+{
+    "variables": {
+        "zone": "us-central1-a",
+        "act_git_ref": "ed2584b",
+        "act_version": "6.1",
+        "build": "{{ timestamp }}"
+    },
+    "builders": [{
+        "type": "googlecompute",
+        "project_id": "aerospike-act",
+        "source_image_family": "centos-7",
+        "machine_type": "n2-standard-2",
+        "zone": "{{user `zone`}}",
+        "ssh_username": "packer",
+        "image_name": "aerospike-act-{{user `act_version` | clean_resource_name}}-{{ user `act_git_ref` }}",
+        "image_family": "aerospike-act",
+        "image_description": "Aerospike ACT installed on CentOS 7"
+    }],
+    "provisioners": [
+        {
+            "pause_before": "15s",
+            "type": "shell",
+            "script": "provisioners/update-system.sh",
+            "expect_disconnect": true,
+            "pause_after": "15s"
+        },
+        {
+            "type": "file",
+            "source": "provisioners/aerospike-act.service",
+            "destination": "/tmp/aerospike-act.service"
+        },
+        {
+            "type": "file",
+            "source": "provisioners/aerospike-act-iostat.service",
+            "destination": "/tmp/aerospike-act-iostat.service"
+        },
+        {
+            "type": "shell",
+            "environment_vars": [
+                "ACT_GIT_REF={{user `act_git_ref`}}"
+            ],
+            "script": "provisioners/install-act.sh"
+        }
+    ]
+}
