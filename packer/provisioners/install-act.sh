@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sudo yum install gcc git -y
+sudo yum install gcc git make sysstat wget -y
 
 echo "Checking out ACT $ACT_GIT_REF"
 git clone https://github.com/aerospike/act.git
@@ -19,7 +19,6 @@ sudo ln -s /usr/sbin/act_latency.py /usr/sbin/act_latency
 
 echo "Creating log directory"
 sudo mkdir /var/log/act
-sudo chown ec2-user:ec2-user /var/log/act
 
 echo "Copying systemd configuration"
 sudo cp /tmp/aerospike-act*.service /etc/systemd/system/
