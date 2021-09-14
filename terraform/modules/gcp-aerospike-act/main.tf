@@ -93,7 +93,7 @@ data "template_cloudinit_config" "cloud_config" {
 
 resource "google_compute_instance" "act_instance" {
   count            = var.gcp_instance_count
-  name             = "act${count.index + 1}-${var.gcp_machine_type}"
+  name             = "act${count.index + 1}-${var.test_name}-${var.gcp_machine_type}"
   machine_type     = var.gcp_machine_type
   min_cpu_platform = var.gcp_cpu_platform
 
