@@ -148,20 +148,20 @@ Jul 12 12:59:42 ip-172-31-45-102.us-west-2.compute.internal bash[2968]: Running 
 Tail the output of ACT:
 
 ```
-tail -f /var/log/act/quick_start/act_storage.stdout.txt
+tail -f /var/log/act/*/act_storage.stdout.txt
 ```
 
 Tail the output of `iostat` which is also setup to run periodically and log it's
 output during the test:
 
 ```
-tail -f /var/log/act/quick_start/iostat.stdout.txt
+tail -f /var/log/act/*/iostat.stdout.txt
 ```
 
 View a latency report of the test output thus far:
 
 ```
-act_latency -l /var/log/act/quick_start/act_storage.stdout.txt -h reads -h large-block-writes -n 3 -e 3 -t 60
+act_latency -l /var/log/act/*/act_storage.stdout.txt -h reads -h large-block-writes -n 3 -e 3 -t 60
 ```
 
 When you are done testing, tear down the environment:
@@ -196,6 +196,12 @@ packer build -var region=us-east-1 act-aws.json
 ### Build Sepcific ACT versions
 
 To build a specific version of ACT specify the git ref and ACT version strings:
+
+**ACT 6.2**
+
+```
+packer build -var act_version=6.2 -var act_git_ref=9ad31ad <build_template>
+```
 
 **ACT 6.1**
 

@@ -5,6 +5,13 @@
 locals {
   # map instance types to the local instance store device naming conventions
   instance_devices = {
+    "i4i.large":     {"count": 1, "prefix": "/dev/nvme", "offset": 1}
+    "i4i.xlarge":    {"count": 1, "prefix": "/dev/nvme", "offset": 1}
+    "i4i.2xlarge":   {"count": 1, "prefix": "/dev/nvme", "offset": 1}
+    "i4i.4xlarge":   {"count": 1, "prefix": "/dev/nvme", "offset": 1}
+    "i4i.8xlarge":   {"count": 2, "prefix": "/dev/nvme", "offset": 1}
+    "i4i.16xlarge":  {"count": 4, "prefix": "/dev/nvme", "offset": 1}
+    "i4i.32xlarge":  {"count": 8, "prefix": "/dev/nvme", "offset": 1}
     "c5d.large":     {"count": 1, "prefix": "/dev/nvme", "offset": 1}
     "c5d.xlarge":    {"count": 1, "prefix": "/dev/nvme", "offset": 1}
     "c5d.4xlarge":   {"count": 1, "prefix": "/dev/nvme", "offset": 1}

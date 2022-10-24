@@ -1,8 +1,8 @@
 {
     "variables": {
         "region": "us-west-2",
-        "act_git_ref": "ed2584b",
-        "act_version": "6.1",
+        "act_git_ref": "9ad31ad",
+        "act_version": "6.2",
         "build": "{{ timestamp }}"
     },
     "builders": [{

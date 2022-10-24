@@ -15,9 +15,9 @@ variable "aws_subnet_id" {
 }
 
 variable "aws_ami_owner" {
-  description = "Account ID of the owner of the ACT AMI. Default is Micah Carrick <mcarrick@aerospike.com>."
+  description = "Account ID of the owner of the ACT AMI."
   type        = string
-  default     = "696609415687"
+  default     = "337314033594"
 }
 
 variable "aws_ami_name" {
