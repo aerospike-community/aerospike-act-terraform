@@ -83,10 +83,10 @@ ssh_logins = {
 ```
 
 SSH into the instance and verify the `cloud-init` script is running `act_prep`
-on the local SSD device by tailing `/var/log/cloud-init-output.log`:
+on the local SSD device by tailing `/var/log/cloud-init-output.log` as sudo:
 
 ```
-$ tail -f /var/log/cloud-init-output.log
+$ sudo tail -f /var/log/cloud-init-output.log
 ```
 
 This log will include the `act_prep` output which will take a while to run:

@@ -12,6 +12,12 @@ locals {
     "i4i.8xlarge":   {"count": 2, "prefix": "/dev/nvme", "offset": 1}
     "i4i.16xlarge":  {"count": 4, "prefix": "/dev/nvme", "offset": 1}
     "i4i.32xlarge":  {"count": 8, "prefix": "/dev/nvme", "offset": 1}
+    "i4g.large":     {"count": 1, "prefix": "/dev/nvme", "offset": 1}
+    "i4g.xlarge":    {"count": 1, "prefix": "/dev/nvme", "offset": 1}
+    "i4g.2xlarge":   {"count": 1, "prefix": "/dev/nvme", "offset": 1}
+    "i4g.4xlarge":   {"count": 1, "prefix": "/dev/nvme", "offset": 1}
+    "i4g.8xlarge":   {"count": 2, "prefix": "/dev/nvme", "offset": 1}
+    "i4g.16xlarge":  {"count": 4, "prefix": "/dev/nvme", "offset": 1}
     "c5d.large":     {"count": 1, "prefix": "/dev/nvme", "offset": 1}
     "c5d.xlarge":    {"count": 1, "prefix": "/dev/nvme", "offset": 1}
     "c5d.4xlarge":   {"count": 1, "prefix": "/dev/nvme", "offset": 1}
@@ -89,6 +95,14 @@ locals {
     "r5dn.12xlarge": {"count": 2, "prefix": "/dev/nvme", "offset": 1}
     "r5dn.16xlarge": {"count": 4, "prefix": "/dev/nvme", "offset": 1}
     "r5dn.24xlarge": {"count": 4, "prefix": "/dev/nvme", "offset": 1}
+    "r7gd.medium":   {"count": 1, "prefix": "/dev/nvme", "offset": 1}
+    "r7gd.large":    {"count": 1, "prefix": "/dev/nvme", "offset": 1}
+    "r7gd.xlarge":   {"count": 1, "prefix": "/dev/nvme", "offset": 1}
+    "r7gd.2xlarge":  {"count": 1, "prefix": "/dev/nvme", "offset": 1}
+    "r7gd.4xlarge":  {"count": 1, "prefix": "/dev/nvme", "offset": 1}
+    "r7gd.8xlarge":  {"count": 1, "prefix": "/dev/nvme", "offset": 1}
+    "r7gd.12xlarge": {"count": 2, "prefix": "/dev/nvme", "offset": 1}
+    "r7gd.16xlarge": {"count": 2, "prefix": "/dev/nvme", "offset": 1}
   }
 
   # physical devices such as /dev/nvme1n1, /dev/nvme2n1, etc.

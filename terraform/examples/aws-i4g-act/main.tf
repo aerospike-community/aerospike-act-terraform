@@ -49,29 +49,41 @@ locals {
   vcpu_multiplier = 4
   test_runs = [
     {
-      "act_rating": "35X"
+      "act_rating": "15X"
+      "instance_type": "i4g.large"
+      "device_count": 1
+      "partition_count": 0,
+    },
+    {
+      "act_rating": "30X"
+      "instance_type": "i4g.xlarge"
+      "device_count": 1
+      "partition_count": 0,
+    },
+    {
+      "act_rating": "60X"
       "instance_type": "i4g.2xlarge"
       "device_count": 1
       "partition_count": 2,
     },
     {
-      "act_rating": "70X"
+      "act_rating": "45X"
       "instance_type": "i4g.4xlarge"
       "device_count": 1
       "partition_count": 4,
     },
     {
-      "act_rating": "70X"
+      "act_rating": "25X"
       "instance_type": "i4g.8xlarge"
       "device_count": 2
       "partition_count": 4,
     },
     {
-      "act_rating": "70X"
+      "act_rating": "10X"
       "instance_type": "i4g.16xlarge"
       "device_count": 4
       "partition_count": 4,
-    },
+    }
   ]
 }
 
@@ -89,7 +101,8 @@ module "act_i4g" {
   act_config_template   = "${path.module}/config/act_storage.conf"
 
   act_config_vars       = {
-    test_duration   = 300 # was: 3600 * 12
+    test_duration   = 3600 * 24 # was: 3600 * 12 
+    # final test should be 3600 * 24.
     #service_threads = each.value.service_threads
     read_tps        = tonumber(trimsuffix(each.value.act_rating, "X")) * 2000 * each.value.device_count
     write_tps       = tonumber(trimsuffix(each.value.act_rating, "X")) * 1000 * each.value.device_count
@@ -106,7 +119,7 @@ module "act_i4g" {
   s3_path   = "aws-i4g-act/${formatdate("YYYY-MM-DD-hh-mm-ss", timestamp())}"
 
   # microsecond histograms from 256us to 16,384us
-  latency_args = "-h reads -h large-block-writes -h large-block-reads -s 8 -n 7 -e 1 -t 300"
+  latency_args = "-h reads -h large-block-writes -h large-block-reads -s 8 -n 7 -e 1 -t 3600"
 }
 
 output "ssh_logins" {
