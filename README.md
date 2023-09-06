@@ -197,6 +197,12 @@ packer build -var region=us-east-1 act-aws.json
 
 To build a specific version of ACT specify the git ref and ACT version strings:
 
+**ACT 6.3**
+
+```
+packer build -var act_version=6.3 -var act_git_ref=bb9b87b <build_template>
+```
+
 **ACT 6.2**
 
 ```
