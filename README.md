@@ -83,10 +83,10 @@ ssh_logins = {
 ```
 
 SSH into the instance and verify the `cloud-init` script is running `act_prep`
-on the local SSD device by tailing `/var/log/cloud-init-output.log`:
+on the local SSD device by tailing `/var/log/cloud-init-output.log` as sudo:
 
 ```
-$ tail -f /var/log/cloud-init-output.log
+$ sudo tail -f /var/log/cloud-init-output.log
 ```
 
 This log will include the `act_prep` output which will take a while to run:
@@ -196,6 +196,12 @@ packer build -var region=us-east-1 act-aws.json
 ### Build Sepcific ACT versions
 
 To build a specific version of ACT specify the git ref and ACT version strings:
+
+**ACT 6.3**
+
+```
+packer build -var act_version=6.3 -var act_git_ref=bb9b87b <build_template>
+```
 
 **ACT 6.2**
 
