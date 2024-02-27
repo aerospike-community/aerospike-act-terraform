@@ -103,6 +103,14 @@ locals {
     "r7gd.8xlarge":  {"count": 1, "prefix": "/dev/nvme", "offset": 1}
     "r7gd.12xlarge": {"count": 2, "prefix": "/dev/nvme", "offset": 1}
     "r7gd.16xlarge": {"count": 2, "prefix": "/dev/nvme", "offset": 1}
+    "m7gd.medium":   {"count": 1, "prefix": "/dev/nvme", "offset": 1}
+    "m7gd.large":    {"count": 1, "prefix": "/dev/nvme", "offset": 1}
+    "m7gd.xlarge":   {"count": 1, "prefix": "/dev/nvme", "offset": 1}
+    "m7gd.2xlarge":  {"count": 1, "prefix": "/dev/nvme", "offset": 1}
+    "m7gd.4xlarge":  {"count": 1, "prefix": "/dev/nvme", "offset": 1}
+    "m7gd.8xlarge":  {"count": 1, "prefix": "/dev/nvme", "offset": 1}
+    "m7gd.12xlarge": {"count": 2, "prefix": "/dev/nvme", "offset": 1}
+    "m7gd.16xlarge": {"count": 2, "prefix": "/dev/nvme", "offset": 1}
   }
 
   # physical devices such as /dev/nvme1n1, /dev/nvme2n1, etc.
