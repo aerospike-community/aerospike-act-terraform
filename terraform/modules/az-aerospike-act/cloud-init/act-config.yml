@@ -1,0 +1,31 @@
+#cloud-config
+---
+write_files:
+- path: /opt/act/${config_file}
+  encoding: b64
+# owner: ec2-user:ec2-user #on amazon linux?  should be cloud-user on CentOS?
+#  owner: cloud-user:cloud-user # did not work. only first command succeeds. 
+#  act_config file is written. no environment file.
+  content: ${config_content}
+- path: /opt/act/environment
+# owner: ec2-user:ec2-user #on amazon linux?  should be cloud-user on CentOS?
+#  owner: cloud-user:cloud-user  #environment file is not written.
+  content: |
+    ACT_CMD=${act_cmd}
+    ACT_CONFIG=/opt/act/${config_file}
+    ACT_DEVICES=${devices}
+    ACT_TEST=${test_name}
+    ACT_LATENCY_ARGS=${latency_args}
+    ACT_S3_URI=${s3_uri}
+    ACT_AUTO_SHUTDOWN=${auto_shutdown}
+    ACT_IOSTAT_INTERVAL=${iostat_interval}
+    ACT_INSTANCE_TYPE=${act_instance_type}
+    AZURE_AMI_ID=${azure_ami_id}
+%{ if auto_start ~}
+runcmd:
+  - [sed, -i, -e, 's/#!\/usr\/bin\/python/#!\/usr\/bin\/python3\n#/g', /usr/sbin/act_latency.py]
+  - [ systemctl, enable, aerospike-act-iostat.service ]
+  - [ systemctl, enable, aerospike-act.service ]
+  - [ systemctl, start, --no-block, aerospike-act.service ]
+%{ endif ~}
+#  - [sh, -xc, "sudo ln -sf /usr/bin/python3 /usr/bin/python"]
