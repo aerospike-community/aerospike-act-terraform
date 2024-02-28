@@ -1,0 +1,75 @@
+{
+    "variables": {
+        "aws_access_key": "{{env `AWS_ACCESS_KEY`}}",
+        "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
+        "aws_region": "us-east-1",
+        "az_region": "eastus",
+        "act_git_ref": "bb9b87b",
+        "act_version": "6.3",
+        "build": "{{ timestamp }}"
+    },
+    "builders": [
+      {
+        "name": "aerospike_act",
+        "type": "amazon-ebs",
+        "region": "{{user `aws_region`}}",
+        "ami_groups": "all",
+        "source_ami_filter": {
+            "filters": {
+            "virtualization-type": "hvm",
+            "name": "amzn2-ami-hvm-*-arm64-gp2",
+            "root-device-type": "ebs"
+            },
+            "owners": ["137112412989"],
+            "most_recent": true
+        },
+        "instance_type": "i4g.large",
+        "ssh_username": "ec2-user",
+        "ami_name": "aerospike-act-arm64-{{user `act_version` | clean_resource_name}}-{{ user `act_git_ref` }}",
+        "ami_description": "Aerospike ACT installed on Amazon Linux 2 (HVM).",
+        "tags": {
+            "Name": "Aerospike ACT {{user `act_version`}}"
+        }
+     },
+     {
+        "type": "azure-arm",
+        "client_id": "dc536883-xxxx-xxxx-xxxx-03be49268974",
+        "client_secret": "Js88Q~_xxxxxxxxxxxxxxxxx_iXTSscFb3p6Ya1O",
+        "subscription_id": "dc7b8f77-xxxx-xxxx-xxxx-f6a419dv90d4",
+        "image_publisher" : "OpenLogic",
+        "image_offer" : "CentOS",
+        "image_sku" : "8_5-gen2",
+        "os_type" : "Linux",
+        "managed_image_name" : "aerospike-act-{{user `act_version` | clean_resource_name}}-{{ user `act_git_ref` }}",
+        "managed_image_resource_group_name" : "ace_act_images",
+        "location" : "East US",
+        "vm_size" : "Standard_B1s"
+     }
+    ],
+    "provisioners": [
+        {
+            "pause_before": "15s",
+            "type": "shell",
+            "script": "provisioners/update-system.sh",
+            "expect_disconnect": true,
+            "pause_after": "15s"
+        },
+        {
+            "type": "file",
+            "source": "provisioners/aerospike-act-az.service",
+            "destination": "/tmp/aerospike-act.service"
+        },
+        {
+            "type": "file",
+            "source": "provisioners/aerospike-act-iostat.service",
+            "destination": "/tmp/aerospike-act-iostat.service"
+        },
+        {
+            "type": "shell",
+            "environment_vars": [
+                "ACT_GIT_REF={{user `act_git_ref`}}"
+            ],
+            "script": "provisioners/install-act.sh"
+        }
+    ]
+}
