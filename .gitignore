@@ -1,4 +1,5 @@
 .terraform*
 terraform.tfstate*
-
 packer/*.pem
+.DS_Store
+*.pem
