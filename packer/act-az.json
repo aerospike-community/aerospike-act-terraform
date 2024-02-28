@@ -33,9 +33,9 @@
      },
      {
         "type": "azure-arm",
-        "client_id": "dc536883-258e-4294-bfc2-03061d268974",
-        "client_secret": "Js88Q~hrEKBuvWcuglfqFkNqYiXTSsa2G_p6Ya1O",
-        "subscription_id": "dc7b8f77-f812-449e-9724-f6a4109b20d4",
+        "client_id": "dc536883-xxxx-xxxx-xxxx-03be49268974",
+        "client_secret": "Js88Q~_xxxxxxxxxxxxxxxxx_iXTSscFb3p6Ya1O",
+        "subscription_id": "dc7b8f77-xxxx-xxxx-xxxx-f6a419dv90d4",
         "image_publisher" : "OpenLogic",
         "image_offer" : "CentOS",
         "image_sku" : "8_5-gen2",
