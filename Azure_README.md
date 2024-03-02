@@ -1,7 +1,3 @@
-```Java
-
-```
-
 Running ACT on Azure
 ================================================================================
 
@@ -48,6 +44,8 @@ This is allow you to log into your [Azure portal](https://portal.azure.com)
 Select your aeropsike.com account (free trial accounts don't have quotas to launch instances that we will need to test for Aerospike.)
 
 Check if you have a subscription allocated.  Click on "Subscriptions" icon on the dashboard. 
+
+
 <img src="./AzureACTFigs/Fig2_AzSubscription.png"
      alt="AzurePortalLogin"
      style="center; margin-right: 10px;"
@@ -55,6 +53,7 @@ Check if you have a subscription allocated.  Click on "Subscriptions" icon on th
      height="240"/>
 
 You should see your subscription and role as Owner. 
+
 
 <img src="./AzureACTFigs/Fig3_AzSubscription.png"
      alt="AzurePortalLogin"
@@ -311,7 +310,6 @@ First, log into your `ACS Development2 azure` account from the shell command lin
 
 ```
 az login 
-
 ```
 
 This will open a browser window to login to azure portal. Pick the correct account to log in. If successful, you can close the browser window and the command line will show something like this:
@@ -329,20 +327,22 @@ Modify main.tf per the test you are doing .. then:
 
 ```
 terraform plan
-terraform apply 
-. . . 
-Enter a value: yes
-. . .
 ```
+```
+terraform apply 
+```
+. . . 
+`Enter a value: yes`
+. . .
 
 When done, before re-running ACT on same or another instance type:
 
 ```
 terraform destroy
-. . . 
-Enter a value: yes
-. . .
 ```
+. . . 
+`Enter a value: yes`
+. . .
 
 #### Analyzing the Results
 
@@ -386,17 +386,5 @@ variable "s3_aws_access_key" { }
 
 ```
 unset TF_VAR_s3_aws_access_key   
-
 ```
 will delete/clear the environment variable.
-
-
-
-
-
-
-
-
-```Java
-
-```
