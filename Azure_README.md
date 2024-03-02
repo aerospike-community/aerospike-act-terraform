@@ -292,7 +292,7 @@ This is a one time build. Other users in this group can start off this image.
 
 ### Using Azure CLI for Terraform Session Authentication
 
-We use Terraform for the initial deployment of a cluster which relies on the authenticated session of the azure cli.  In turn the azure cli relies on the oauth authentication of the user performing the deployment. This authentication flow is much more secure than using service principals with shared certificates or passwords as it restricts access to specific users and relies on time limited oauth tokens. 
+We use Terraform for the deploying the ACT test instances. Terraform relies on the authenticated session of the azure cli.  In turn the azure cli relies on the oauth authentication of the user performing the deployment. This authentication flow is much more secure than using service principals with shared certificates or passwords as it restricts access to specific users and relies on time limited oauth tokens. 
 
 To use this method, on the working machine, we must install azure-cli.  
 
@@ -331,18 +331,17 @@ terraform plan
 ```
 terraform apply 
 ```
-. . . 
+
 `Enter a value: yes`
-. . .
 
 When done, before re-running ACT on same or another instance type:
 
 ```
 terraform destroy
 ```
-. . . 
+
 `Enter a value: yes`
-. . .
+
 
 #### Analyzing the Results
 
